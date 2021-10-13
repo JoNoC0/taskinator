@@ -3,11 +3,9 @@ var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 var createTaskHandler = function(event) {
     event.preventDefault();
-
 var taskNameInput = document.querySelector("input[name='task-name']").value;
-
 var taskTypeInput = document.querySelector("select[name='task-type']").value;
-console.log(taskTypeInput);
+
 
     // create list item
     var listItemEl = document.createElement("li");
