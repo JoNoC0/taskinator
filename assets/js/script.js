@@ -63,6 +63,10 @@ var createTaskEl = function(taskDataObj) {
   taskIdCounter++;
 };
 
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
 var createTaskActions = function(taskId) {
   // create container to hold elements
   var actionContainerEl = document.createElement("div");
@@ -115,9 +119,9 @@ for (var i = 0; i < tasks.length; i++) {
     if (tasks[i].id === parseInt(taskId)) {
         tasks[i].name = taskName;
         tasks[i].type = taskType;
+        
     }
 }
-
   alert("Task Updated!");
 
   // remove data attribute from form
@@ -125,6 +129,10 @@ for (var i = 0; i < tasks.length; i++) {
   // update formEl button to go back to saying "Add Task" instead of "Edit Task"
   formEl.querySelector("#save-task").textContent = "Add Task";
 };
+
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 var taskButtonHandler = function(event) {
   // get target element from event
@@ -158,7 +166,6 @@ var taskStatusChangeHandler = function(event) {
           tasks[i].status = statusValue;
       }
   }    
-console.log(tasks);
 
   if (statusValue === "to do") {
     tasksToDoEl.appendChild(taskSelected);
@@ -168,6 +175,10 @@ console.log(tasks);
     tasksCompletedEl.appendChild(taskSelected);
   }
 };
+
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 var editTask = function(taskId) {
   console.log(taskId);
@@ -199,6 +210,21 @@ var deleteTask = function(taskId) {
   taskSelected.remove();
 };
 
+// create new array to hold updated list of tasks
+var updatedTaskArr = [];
+// loop through currents tasks
+for (let i = 0; i < tasks.length; i++) {
+    // if tasks [i].id doesn't match the value of taskId, let's keep that task and push it into a new array
+    if (tasks[i].id !== parseInt(taskId)) {
+    updatedTaskArr.push(tasks[i]);
+    }
+}
+// reassign tasks array to be the same as updatedTaskArr
+tasks = updatedTaskArr;
+
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 // Create a new task
 formEl.addEventListener("submit", taskFormHandler);
 
